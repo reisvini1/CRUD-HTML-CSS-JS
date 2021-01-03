@@ -43,7 +43,7 @@ $(function() {
         registro.DtNascimento = DtNascimento
         registro.Formacao = Formacao
 
-        registro.ID = 1
+        registro.ID = dados + 1
 
         dados.push(registro)    
         
