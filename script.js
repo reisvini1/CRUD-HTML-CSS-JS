@@ -1,31 +1,41 @@
-var dados = [1]
+var dados = new Array()
+
+function apagaRegistro(id) {
+
+}
+
+function editaRegistro(id) {
+
+}
 
 function populaTabela() {
     if (Array.isArray(dados)) {
 
         localStorage.setItem("__dados__", JSON.stringify(dados))
-
-        $("#tblDados tbody").html("")
+        
+         $("#tblDados tbody").html("")
 
         dados.forEach(function (item) {
             //TEMPLATE STRING
-            $("#tblDados tbody").append(`<tr>
+            $("#tblDados tbody").append(`
+            <tr>
                 <td>${item.ID}</td>
                 <td>${item.Nome}</td>
                 <td>${item.Sobrenome}</td>
                 <td>${item.DtNascimento}</td>
                 <td>${item.Formacao}</td>
+                <td><button type="button" class="btn btn-primary"><i class="fa fa-edit" /></button></td>
+                <td><button type="button" class="btn btn-danger"><i class="fa fa=trash" /></button></td>
             </tr>`)
         })
     }
 }
 
 $(function() {
-    //EXERCUTA AO CARREGAR DA TELA
-    dados = JSON.parse(localStorage.getItem("__dados__"))
- 
-    if (dados) {
-        populaTabela
+    //EXECUTA AO CARREGAR DA TELA
+    if (JSON.parse(localStorage.getItem("__dados__"))) {
+        dados = JSON.parse(localStorage.getItem("__dados__")) 
+        populaTabela()
     }
 
     $("#btnSalvar").click(function() {
@@ -43,20 +53,15 @@ $(function() {
         registro.DtNascimento = DtNascimento
         registro.Formacao = Formacao
 
-        registro.ID = dados + 1
-
+        registro.ID = dados.length + 1
         dados.push(registro)    
         
         alert("Registro salvo com sucesso!")
         $("#modalRegistro").modal("hide")
 
         //LIMPEZA DOS DADOS
-        $("txtNome").val("")
-        $("txtSobrenome").val("")
-        $("txtDtNascimento").val("")
-        $("txtFormacao").val("")
+        $(":input").val("")
 
-
-        populaTabela
+        populaTabela()
     })
 })
