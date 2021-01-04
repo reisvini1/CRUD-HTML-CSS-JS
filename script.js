@@ -1,7 +1,16 @@
 var dados = new Array()
 
 function apagaRegistro(id) {
+    let _confirm = confirm("Deseja realmente excluir este registro?")
 
+    if (_confirm) {
+        for(let i = 0; i < dados.length; i++) {
+            if(dados[i].ID == id) {
+                dados.splice(i, 1)
+            }
+        }
+        populaTabela()
+    }
 }
 
 function editaRegistro(id) {
@@ -24,8 +33,8 @@ function populaTabela() {
                 <td>${item.Sobrenome}</td>
                 <td>${item.DtNascimento}</td>
                 <td>${item.Formacao}</td>
-                <td><button type="button" class="btn btn-primary"><i class="fa fa-edit" /></button></td>
-                <td><button type="button" class="btn btn-danger"><i class="fa fa=trash" /></button></td>
+                <td><button type="button" class="btn btn-primary"><i class="fas fa-edit"></i></button></td>
+                <td><button type="button" class="btn btn-danger" onclick="javascript:apagaRegistro(${item.ID});"><i class="fas fa-trash"></i></button></td>
             </tr>`)
         })
     }
